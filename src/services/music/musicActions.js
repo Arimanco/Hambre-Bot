@@ -196,7 +196,8 @@ export async function joinVoiceChannel(client, interaction) {
 }
 
 export async function playQuery(client, interaction, query) {
-      throw new TitanBotError(
+     if (YOUTUBE_URL_PATTERN.test(query)) {
+    throw new TitanBotError(
             'YouTube URL blocked',
             ErrorTypes.USER_INPUT,
             'YouTube links are not supported. Try a song name instead.',
