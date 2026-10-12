@@ -111,6 +111,8 @@ class TitanBot extends Client {
 
   startWebServer() {
     const app = express();
+    // Dashboard web de Hambre Bot
+app.use('/dashboard', express.static('public/dashboard'));
     const configuredPort = Number(this.config.api?.port || process.env.PORT || 3000);
     const maxPortRetryAttempts = Number(process.env.PORT_RETRY_ATTEMPTS || 5);
     const host = process.env.WEB_HOST || '0.0.0.0';
