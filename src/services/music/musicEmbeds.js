@@ -22,17 +22,24 @@ export const MUSIC_BUTTON_IDS = {
 
 export function formatDuration(ms) {
     if (!ms || Number.isNaN(ms)) {
+  
+export function formatDuration(ms) {
+    if (ms == null || !Number.isFinite(Number(ms))) {
         return 'Live';
     }
-    const totalSeconds = Math.floor(ms / 1000);
+
+    const totalSeconds = Math.floor(Math.max(0, Number(ms)) / 1000);
     const hours = Math.floor(totalSeconds / 3600);
     const minutes = Math.floor((totalSeconds % 3600) / 60);
     const seconds = totalSeconds % 60;
+
     if (hours > 0) {
         return `${hours}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
     }
+
     return `${minutes}:${String(seconds).padStart(2, '0')}`;
 }
+
 
 function getTrackArtwork(track) {
     return track?.info?.artworkUrl || track?.info?.thumbnail || null;
