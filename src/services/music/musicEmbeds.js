@@ -56,31 +56,82 @@ function getLoopLabel(loop) {
     }
 }
 
-export function buildNowPlayingEmbed(track, player, guildData) {
-    const requester = track?.info?.requester;
-    const requesterLabel = requester
-        ? (requester.username || requester.tag || 'Unknown')
-        : 'Unknown';
 
-    const position = formatDuration(player?.position || 0);
-    const duration = formatDuration(track?.info?.length || 0);
+export function buildNowPlayingEmbed(track, player, guildData) {
+    const info = track?.info || {};
+    const requester = info.requester;
+    const requesterLabel =
+        requester?.username || requester?.tag || 'Desconocido';
+
+    const length = Number(info.length) || 0;
+    const position = Math.max(0, Number(player?.position) || 0);
+    const isLive = Boolean(info.isStream) || length <= 0;
+
+    const safePosition = length
+        ? Math.min(position, length)
+        : position;
+
+    const progress = length > 0
+        ? Math.min(1, safePosition / length)
+        : 0;
+
+    const barSize = 12;
+    const filled = Math.round(progress * barSize);
+
+    const progressBar = isLive
+        ? 'EN VIVO'
+        : `${'━'.repeat(filled)}${'─'.repeat(barSize - filled)}`;
+
+    const durationText = isLive
+        ? 'EN VIVO'
+        : `${formatDuration(safePosition)} / ${formatDuration(length)}`;
+
+    const artwork = getTrackArtwork(track);
+    const title = info.title || 'Canción desconocida';
+    const artist = info.author || 'Artista desconocido';
 
     return createEmbed({
-        title: 'Now Playing',
-        description: track?.info?.title || 'Unknown track',
-        color: 'primary',
+        title: 'Hambre Music',
+        description: [
+            `**${title}**`,
+            `*${artist}*`,
+            '',
+            `\`${progressBar}\``,
+            `\`${durationText}\``,
+        ].join('\n'),
+        color: '#8B5CF6',
+        url: info.uri?.startsWith('https://') ? info.uri : null,
+        image: artwork,
         fields: [
-            { name: 'Artist', value: track?.info?.author || 'Unknown', inline: true },
-            { name: 'Requester', value: requesterLabel, inline: true },
-            { name: 'Progress', value: `${position} / ${duration}`, inline: true },
-            { name: 'Volume', value: `${guildData?.volume ?? 75}%`, inline: true },
-            { name: 'Loop', value: getLoopLabel(guildData?.loop), inline: true },
-            { name: 'Queue', value: `${player?.queue?.length || 0} track(s)`, inline: true },
+            {
+                name: 'Solicitó',
+                value: requesterLabel,
+                inline: true,
+            },
+            {
+                name: 'Volumen',
+                value: `${guildData?.volume ?? 75}%`,
+                inline: true,
+            },
+            {
+                name: 'Repetición',
+                value: getLoopLabel(guildData?.loop),
+                inline: true,
+            },
+            {
+                name: 'En cola',
+                value: `${player?.queue?.length || 0} canción(es)`,
+                inline: true,
+            },
+            {
+                name: 'Estado',
+                value: player?.paused ? 'Pausado' : 'Reproduciendo',
+                inline: true,
+            },
         ],
-        thumbnail: getTrackArtwork(track),
-        footer: player?.paused ? 'Paused' : 'Playing',
     });
 }
+
 
 export function buildQueueEmbed(queue, currentTrack, page = 0) {
     const totalTracks = queue?.length || 0;
