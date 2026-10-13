@@ -7,8 +7,8 @@ import {
     buildPlayerButtonRows,
 } from './musicEmbeds.js';
 
-const UPDATE_INTERVAL_MS = 15 * 1000;
-const IDLE_DISCONNECT_MS = 30 * 1000;
+const UPDATE_INTERVAL_MS = 01 * 1000;
+const IDLE_DISCONNECT_MS = 01 * 1000;
 
 async function editOrSendPlayerMessage(client, guildData, channelId, embed, components) {
     const channel = client.channels.cache.get(channelId);
