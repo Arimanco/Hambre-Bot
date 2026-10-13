@@ -110,7 +110,7 @@ export function buildNowPlayingEmbed(track, player, guildData) {
             },
             {
                 name: 'Volumen',
-                value: `${guildData?.volume ?? 75}%`,
+                value: `${guildData?.volume ?? 70}%`,
                 inline: true,
             },
             {
@@ -164,63 +164,72 @@ export function buildQueueEmbed(queue, currentTrack, page = 0) {
     });
 }
 
+<CodeBlock language="javascript" editable>
 export function buildPlayerButtonRows(player, guildData) {
-    const paused = player?.paused;
-    const row1 = new ActionRowBuilder().addComponents(
-        new ButtonBuilder()
-            .setCustomId(MUSIC_BUTTON_IDS.PAUSE)
-            .setLabel('Pause')
-            .setStyle(ButtonStyle.Primary)
-            .setEmoji('⏸️')
-            .setDisabled(Boolean(paused)),
-        new ButtonBuilder()
-            .setCustomId(MUSIC_BUTTON_IDS.RESUME)
-            .setLabel('Resume')
-            .setStyle(ButtonStyle.Success)
-            .setEmoji('▶️')
-            .setDisabled(!paused),
-        new ButtonBuilder()
-            .setCustomId(MUSIC_BUTTON_IDS.SKIP)
-            .setLabel('Skip')
-            .setStyle(ButtonStyle.Secondary)
-            .setEmoji('⏭️'),
-        new ButtonBuilder()
-            .setCustomId(MUSIC_BUTTON_IDS.STOP)
-            .setLabel('Stop')
-            .setStyle(ButtonStyle.Danger)
-            .setEmoji('⏹️'),
-        new ButtonBuilder()
-            .setCustomId(MUSIC_BUTTON_IDS.SHUFFLE)
-            .setLabel('Shuffle')
-            .setStyle(guildData?.shuffle ? ButtonStyle.Success : ButtonStyle.Secondary)
-            .setEmoji('🔀'),
-    );
+    const paused = Boolean(player?.paused);
 
-    const row2 = new ActionRowBuilder().addComponents(
-        new ButtonBuilder()
-            .setCustomId(MUSIC_BUTTON_IDS.LOOP)
-            .setLabel('Loop')
-            .setStyle(guildData?.loop !== 'none' ? ButtonStyle.Success : ButtonStyle.Secondary)
-            .setEmoji('🔁'),
-        new ButtonBuilder()
-            .setCustomId(MUSIC_BUTTON_IDS.VOL_DOWN)
-            .setLabel('Vol -')
-            .setStyle(ButtonStyle.Secondary)
-            .setEmoji('🔉'),
-        new ButtonBuilder()
-            .setCustomId(MUSIC_BUTTON_IDS.VOL_UP)
-            .setLabel('Vol +')
-            .setStyle(ButtonStyle.Secondary)
-            .setEmoji('🔊'),
-        new ButtonBuilder()
-            .setCustomId(MUSIC_BUTTON_IDS.QUEUE)
-            .setLabel('Queue')
-            .setStyle(ButtonStyle.Secondary)
-            .setEmoji('📋'),
-    );
-
-    return [row1, row2];
+const row1 = new ActionRowBuilder().addComponents(
+new ButtonBuilder()
+.setCustomId(MUSIC_BUTTON_IDS.PAUSE)
+.setLabel('Pausar')
+.setStyle(ButtonStyle.Primary)
+.setEmoji('⏸️')
+.setDisabled(paused),
+new ButtonBuilder()
+.setCustomId(MUSIC_BUTTON_IDS.RESUME)
+.setLabel('Seguir')
+.setStyle(ButtonStyle.Success)
+.setEmoji('▶️')
+.setDisabled(!paused),
+new ButtonBuilder()
+.setCustomId(MUSIC_BUTTON_IDS.SKIP)
+.setLabel('Siguiente')
+.setStyle(ButtonStyle.Secondary)
+.setEmoji('⏭️'),
+new ButtonBuilder()
+.setCustomId(MUSIC_BUTTON_IDS.STOP)
+.setLabel('Detener')
+.setStyle(ButtonStyle.Danger)
+.setEmoji('⏹️'),
+);
+const row2 = new ActionRowBuilder().addComponents(
+new ButtonBuilder()
+.setCustomId(MUSIC_BUTTON_IDS.SHUFFLE)
+.setLabel('Aleatorio')
+.setStyle(
+guildData?.shuffle
+? ButtonStyle.Success
+: ButtonStyle.Secondary
+)
+.setEmoji('🔀'),
+new ButtonBuilder()
+.setCustomId(MUSIC_BUTTON_IDS.LOOP)
+.setLabel('Repetir')
+.setStyle(
+guildData?.loop !== 'none'
+? ButtonStyle.Success
+: ButtonStyle.Secondary
+)
+.setEmoji('🔁'),
+new ButtonBuilder()
+.setCustomId(MUSIC_BUTTON_IDS.VOL_DOWN)
+.setLabel('Vol -')
+.setStyle(ButtonStyle.Secondary)
+.setEmoji('🔉'),
+new ButtonBuilder()
+.setCustomId(MUSIC_BUTTON_IDS.VOL_UP)
+.setLabel('Vol +')
+.setStyle(ButtonStyle.Secondary)
+.setEmoji('🔊'),
+new ButtonBuilder()
+.setCustomId(MUSIC_BUTTON_IDS.QUEUE)
+.setLabel('Cola')
+.setStyle(ButtonStyle.Secondary)
+.setEmoji('📋'),
+);
+return [row1, row2];
 }
+</CodeBlock>
 
 export function buildQueuePaginationRow(page, totalPages) {
     return getPaginationRow('music_queue', page + 1, totalPages);
