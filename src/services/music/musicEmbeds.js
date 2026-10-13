@@ -161,7 +161,7 @@ export function buildQueueEmbed(queue, currentTrack, page = 0) {
     });
 }
 
-<CodeBlock language="javascript" editable>
+
 export function buildPlayerButtonRows(player, guildData) {
     const paused = Boolean(player?.paused);
 
@@ -226,7 +226,6 @@ new ButtonBuilder()
 );
 return [row1, row2];
 }
-</CodeBlock>
 
 export function buildQueuePaginationRow(page, totalPages) {
     return getPaginationRow('music_queue', page + 1, totalPages);
