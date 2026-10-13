@@ -21,9 +21,6 @@ export const MUSIC_BUTTON_IDS = {
 };
 
 export function formatDuration(ms) {
-    if (!ms || Number.isNaN(ms)) {
-  
-export function formatDuration(ms) {
     if (ms == null || !Number.isFinite(Number(ms))) {
         return 'Live';
     }
