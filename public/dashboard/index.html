@@ -1,0 +1,223 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b0910">
+  <title>Hambre Bot | Dashboard</title>
+  <link rel="stylesheet" href="/dashboard/styles.css">
+</head>
+
+<body>
+<div class="app">
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-icon">🍽️</div>
+      <div>
+        <div class="brand-name">HAMBRE <span>BOT</span></div>
+        <div class="brand-sub">Panel de administración</div>
+      </div>
+    </div>
+
+    <div class="nav-label">PRINCIPAL</div>
+    <nav class="nav" aria-label="Navegación principal">
+      <button class="active" data-page="Inicio"><span class="nav-icon">⌂</span>Inicio</button>
+      <button data-page="Servidor"><span class="nav-icon">▦</span>Servidor</button>
+      <button data-page="Bienvenida"><span class="nav-icon">✧</span>Bienvenida</button>
+      <button data-page="Autoroles"><span class="nav-icon">♙</span>Autoroles</button>
+      <button data-page="Moderación"><span class="nav-icon">⚖</span>Moderación</button>
+      <button data-page="Registros"><span class="nav-icon">☷</span>Registros</button>
+      <button data-page="Estadísticas"><span class="nav-icon">▥</span>Estadísticas</button>
+    </nav>
+
+    <div class="nav-label">BOT</div>
+    <nav class="nav">
+      <button data-page="Música"><span class="nav-icon">♫</span>Música</button>
+      <button data-page="Configuración"><span class="nav-icon">⚙</span>Configuración</button>
+    </nav>
+
+    <div class="sidebar-bottom">
+      <div class="bot-status">
+        <div class="status-row">
+          <span class="dot"></span>
+          <span>Estado del bot</span>
+        </div>
+        <div class="status-note">
+          Vista previa local.<br>
+          La conexión con Discord está pendiente.
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <main>
+    <header class="topbar">
+      <div class="breadcrumb">
+        Hambre Bot <span> / </span>
+        <strong id="breadcrumb">Inicio</strong>
+      </div>
+      <div class="top-actions">
+        <button class="server-select" id="serverButton">▣ &nbsp; Seleccionar servidor⌄</button>
+        <button class="profile" title="Perfil">H</button>
+      </div>
+    </header>
+
+    <div class="content">
+      <div id="notice" class="notice"></div>
+
+      <!-- INICIO: todo el contenido de esta pantalla va dentro de este div -->
+      <div id="homePage">
+
+        <section class="page-heading">
+          <div>
+            <div class="eyebrow">TU CENTRO DE CONTROL</div>
+            <h1 id="pageTitle">¡Bienvenido a Hambre Bot!</h1>
+            <p class="muted" id="pageDescription">Administrá tu comunidad desde un solo lugar.</p>
+          </div>
+          <button class="primary-btn" id="mainAction">＋ Configurar servidor</button>
+        </section>
+
+        <section class="hero">
+          <div class="hero-copy">
+            <div class="eyebrow">HAMBRE BOT · DASHBOARD</div>
+            <h2>Tu comunidad, bajo control.</h2>
+            <p>Personalizá la experiencia de tu servidor con tus propias reglas.</p>
+            <button class="primary-btn" id="heroAction">Explorar configuración →</button>
+          </div>
+          <div class="hero-symbol">🍽️</div>
+        </section>
+
+        <div class="section-heading">
+          <div>
+            <h2>Resumen del servidor</h2>
+            <p class="muted">Los datos reales aparecerán al conectar Discord.</p>
+          </div>
+        </div>
+
+        <section class="stats">
+          <article class="card">
+            <div class="stat-top">
+              <span class="stat-title">Miembros</span>
+              <span class="stat-icon">♙</span>
+            </div>
+            <div class="stat-number">—</div>
+            <div class="stat-foot">Esperando conexión</div>
+          </article>
+
+          <article class="card">
+            <div class="stat-top">
+              <span class="stat-title">Canales</span>
+              <span class="stat-icon">▤</span>
+            </div>
+            <div class="stat-number">—</div>
+            <div class="stat-foot">Esperando conexión</div>
+          </article>
+
+          <article class="card">
+            <div class="stat-top">
+              <span class="stat-title">Roles</span>
+              <span class="stat-icon">♧</span>
+            </div>
+            <div class="stat-number">—</div>
+            <div class="stat-foot">Esperando conexión</div>
+          </article>
+
+          <article class="card">
+            <div class="stat-top">
+              <span class="stat-title">Estado del bot</span>
+              <span class="stat-icon">◈</span>
+            </div>
+            <div class="stat-number" style="font-size:20px">Sin conectar</div>
+            <div class="stat-foot">Vista previa local</div>
+          </article>
+        </section>
+
+        <div class="section-heading">
+          <div>
+            <h2>Administración rápida</h2>
+            <p class="muted">Accedé a las funciones principales.</p>
+          </div>
+        </div>
+
+        <section class="lower-grid">
+          <div class="panel">
+            <div class="panel-heading">
+              <h2>Accesos rápidos</h2>
+              <span>CONFIGURACIÓN</span>
+            </div>
+
+            <div class="quick-grid">
+              <button class="quick-item" data-go="Bienvenida">
+                <span class="quick-icon">✧</span>
+                <span><strong>Bienvenida</strong><small>Mensajes de entrada</small></span>
+              </button>
+
+              <button class="quick-item" data-go="Autoroles">
+                <span class="quick-icon">♙</span>
+                <span><strong>Autoroles</strong><small>Roles automáticos</small></span>
+              </button>
+
+              <button class="quick-item" data-go="Moderación">
+                <span class="quick-icon">⚖</span>
+                <span><strong>Moderación</strong><small>Protección del servidor</small></span>
+              </button>
+
+              <button class="quick-item" data-go="Registros">
+                <span class="quick-icon">☷</span>
+                <span><strong>Registros</strong><small>Eventos y actividad</small></span>
+              </button>
+            </div>
+          </div>
+
+          <div class="panel">
+            <div class="panel-heading">
+              <h2>Actividad reciente</h2>
+              <span>EVENTOS</span>
+            </div>
+
+            <div class="activity">
+              <div class="activity-item">
+                <span class="activity-icon">↗</span>
+                <div>
+                  <strong>Registro de miembros</strong>
+                  <p>Se mostrará cuando conectemos los eventos de Discord.</p>
+                </div>
+              </div>
+
+              <div class="activity-item">
+                <span class="activity-icon">⚖</span>
+                <div>
+                  <strong>Acciones de moderación</strong>
+                  <p>Las sanciones aparecerán en este espacio.</p>
+                </div>
+              </div>
+
+              <div class="activity-item">
+                <span class="activity-icon">⚙</span>
+                <div>
+                  <strong>Configuración del bot</strong>
+                  <p>Acá podrás consultar cambios y ajustes.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <footer class="footer">
+          Hambre Bot · Panel de administración · Vista previa
+        </footer>
+
+      </div>
+      <!-- FIN DEL INICIO -->
+
+      <!-- Acá app.js mostrará las demás pestañas -->
+      <section id="subPage" hidden></section>
+
+    </div>
+  </main>
+</div>
+
+<script src="/dashboard/app.js" defer></script>
+</body>
+</html>
