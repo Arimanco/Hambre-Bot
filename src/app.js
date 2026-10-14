@@ -17,6 +17,7 @@ import { initializeMusic } from './services/music/riffySetup.js';
 import { shutdownMusic } from './services/music/playerHandler.js';
 import pkg from '../package.json' with { type: 'json' };
 import { EXPECTED_SCHEMA_VERSION, EXPECTED_SCHEMA_LABEL } from './config/database/schemaVersion.js';
+import { setupDashboardAuth } from './services/dashboardAuth.js';
 
 class TitanBot extends Client {
   constructor() {
@@ -157,6 +158,7 @@ app.use('/dashboard', express.static('public/dashboard'));
       requestCounts.set(ip, times);
       next();
     });
+        setupDashboardAuth(app, this);
 
     app.get('/health', (req, res) => {
       const dbStatus = this.db?.getStatus?.() || { isDegraded: 'unknown' };
